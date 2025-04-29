@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/dados":{"guestpath":"/home/vagrant/dados","hostpath":"C:/Users/pedro.jardim/Documents/Senac2025/MáquinasVirtuais/VagrantA/dados","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/pedro.jardim/Documents/Senac2025/MáquinasVirtuais/VagrantA","disabled":false,"__vagrantfile":true}}}

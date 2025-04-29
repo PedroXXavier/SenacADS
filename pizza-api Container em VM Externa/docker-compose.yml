@@ -1,0 +1,29 @@
+version: '3.8' # Versão do docker-composer suportada
+
+services: # Serviços que existirão neste docker-composer
+  db: # Este é nome deste serviços [db]
+    image: mysql:8.0.33 # Usa a imagem do MySQL versão 8.0.33.
+    environment: # Configura variáveis de ambiente para o MySQL.
+      MYSQL_DATABASE: pizzademo # Nome do banco de dados.
+      MYSQL_USER: user # Usuário do banco de dados.
+      MYSQL_PASSWORD: password # Senha para o usuário.
+      MYSQL_ROOT_PASSWORD: rootpassword # Senha do usuário root.
+    ports: # Portas TCP que serão expostas
+      - "3306:3306" # Mapeia a porta 3306 do contêiner para a porta 3306 do host.
+    volumes: # Volumes que serão criados internamente neste conteiner
+      - mysql_data:/var/lib/mysql # Monta um volume para persistir os dados do MySQL.
+    restart: always # Política de reinício do contêiner.
+
+  app: # Este é nome deste serviços [app]
+    build: . # Constrói a imagem do serviço app a partir do Dockerfile no diretório atual.
+    ports: # Portas TCP que serão expostas
+      - "8080:8080" # Mapeia a porta 8080 do contêiner para a porta 8080 do host.
+    depends_on: # Dependências
+      - db # Define que o serviço app depende do serviço db.
+    environment: # Configura variáveis de ambiente para a aplicação.
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/pizzademo # URL do datasource do Spring.
+      SPRING_DATASOURCE_USERNAME: user # Usuário do banco de dados para o Spring.
+      SPRING_DATASOURCE_PASSWORD: password # Senha do banco de dados para o Spring.
+
+volumes: # Volumes que serão compartilhados com todos os serviços
+  mysql_data: # Define um volume chamado mysql_data.

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"  # Porta de acesso à interface web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Permite controlar o Docker host
+      - portainer_data:/data  # Volume persistente para dados do Portainer
+
+volumes:
+  portainer_data:
